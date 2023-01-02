@@ -1,42 +1,66 @@
-Vue.component('listelt', {
-    template: '<li @click="viewDetail"><slot></slot></li>',
-    methods: {
-        viewDetail() {
-            console.log('view')
-        }
-    }
-})
-
+window.Event = new Vue();
 Vue.component('placelist', {
     template: `<div>
-   <button @click="closeDetail">close Detail</button>
-    <listelt v-for="place in places" >
-        {{ place.title }}
-    </listelt>
+  
+    <li v-for="place in places" class="blueBg"   @click="viewDetail(place)" :detailTitle="test"><input  @blur="onApplied">  <a :href="href"> {{ place.title }} </a><slot></slot></li>
+   
+     <div class="detail">
+            <h2>Detail</h2>
+            <h3> {{ detailTitle }} </h3>
+        </div>
     </div>`,
     data() {
+
         return {
-            places: [
-                {
-                    title: 'paris', visited: true
+            detailTitle: '',
+            isActive: true,
+            places: [{
+                    title: 'paris',
+                    visited: true,
+                    kid: true,
+                    free: true
+
                 },
                 {
-                    title: 'tokyo', visited: true
+                    title: 'tokyo',
+                    visited: true,
+                    kid: true,
+                    free: true
                 },
                 {
-                    title: 'las vegas', visited: false
+                    title: 'las vegas',
+                    visited: false,
+                    kid: true,
+                    free: true
+
                 },
             ]
         }
+    },
+    methods: {
+        viewDetail(place) {
+            this.$emit('viewDetailEmit')
+            this.detailTitle = place.title
+            this.isActive = false
+            console.log(place)
         },
+        onApplied() {
+            Event.$emit('applied')
+        }
+    },
+    computed: {
+        href() {
+            return '#' + this.detailTitle.toLowerCase().replace(/ /g, '-');
+        }
+
+    }
 
 
 
 });
-Vue.component('place-detail', {
-
-    props :['title'],
-    template:'<div v-if="visible"><h1>{{ title }}</h1><button @click="closeDetail">close</button></div>',
+Vue.component('placedetail', {
+    props: ['title', 'body'],
+    template: '<div><h1>{{ title }}</h1><p>{{ body }}</p></div>',
     methods: {
 
     }
@@ -44,30 +68,56 @@ Vue.component('place-detail', {
 
 
 new Vue({
-    el:"#root",
-    data :{
+    el: "#root",
+    data: {
+        title: 'titledetail',
         visible: true,
-            places: [
-                {
-                    title: 'paris', visited: true
-                },
-                {
-                    title: 'tokyo', visited: true
-                },
-                {
-                    title: 'las vegas', visited: false
-                },
-            ]
-        },
+        detailTitle: 'maintitle',
+        places: [{
+                title: 'paris',
+                visited: true,
+                kid: true,
+                free: true,
+
+            },
+            {
+                title: 'tokyo',
+                visited: true,
+                kid: false,
+                free: true,
+            },
+            {
+                title: 'las vegas',
+                visited: false,
+                kid: false,
+                free: true,
+            },
+        ]
+    },
     computed: {
-        visitedCities(){
+        visitedCities() {
             return this.places.filter(place => place.visited)
+        },
+        forkidCities() {
+            return this.places.filter(place => place.kid)
         }
     },
     methods: {
-        closeDetail(){
-            this.visible=false
+        closeDetail() {
+            console.log('ici')
+            this.visible = false
+        },
+        openDetail() {
+            console.log('ici')
+            this.visible = true
+        },
+        viewDetailEmit() {
+            alert('ok')
+            console.log(place)
         }
 
+    },
+    created() {
+        Event.$on('applied', () => alert('ooook'))
     }
 })

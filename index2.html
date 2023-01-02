@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>VisitIxelles</title>
+    <link rel="stylesheet" type="text/css" href="css/global.css">
+</head>
+
+<body>
+    <div id="root">
+        <div class="mainWrapper">
+            <aside>
+
+                <div>
+
+                    <li v-for="place in places" class="" @click="viewDetail(place)">
+                        <a :href="href" v-text="place"></a>
+                    </li>
+
+
+                </div>
+
+            </aside>
+
+            <main>
+                <div class="detail">
+                    <h2>Detail</h2>
+                    <h3> {{ detailTitle }} </h3>
+                    <p>{{ detailContent }}</p>
+                </div>
+
+
+            </main>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js" integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="js/main2.js"></script>
+
+</body>
+
+</html>

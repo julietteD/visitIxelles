@@ -1,0 +1,25 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-sizing: border-box;
+}
+
+.mainWrapper {
+    display: flex;
+    height: 100vh;
+}
+
+aside {
+    width: 25%;
+    padding: 5%;
+    background-color: aquamarine;
+}
+
+main {
+    padding: 5%;
+}
+
+.blueBg {
+    background-color: blue;
+}
